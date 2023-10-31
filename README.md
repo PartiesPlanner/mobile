@@ -1,38 +1,24 @@
-<p align="center">
-  <img alt="Rocketseat Education" src="https://avatars.githubusercontent.com/u/69590972?s=200&v=4" width="100px" />
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=Rocketseat&message=Education&color=8257e5&labelColor=202024" alt="Rocketseat Project" />
-  <a href="LICENSE"><img  src="https://img.shields.io/static/v1?label=License&message=MIT&color=8257e5&labelColor=202024" alt="License"></a>
-</p>
+# :books: PartyPlanner - Criação de um aplicativo mobile com React Native
 
 
-## 💻 Projeto
+## :mag_right: Funcionalidades 
+* Aplicativo para organizar festas;
 
-ignite-rn-03-ignite-gym
+### :pencil2: Diferenciais
+* Utilização de TypeScript;
+* Utilização do Expo;
 
-## 📝 Licença
+##  :video_game: Tecnologias Utilizadas 
+* React Native;
+* TypeScript;
+* Styled-Components;
+* Teste;
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-<p align="center">
-  Feito com 💜 by Rocketseat
-</p>
-
-
-<!--START_SECTION:footer-->
-
-<br />
-<br />
-
-<p align="center">
-  <a href="https://discord.gg/rocketseat" target="_blank">
-    <img align="center" src="https://storage.googleapis.com/golden-wind/comunidade/rodape.svg" alt="banner"/>
-  </a>
-</p>
-
-<!--END_SECTION:footer-->
+## :rocket: Como executar 
+* Clone o repositório:
+```` git clone https://github.com/PartiesPlanner/partyplanner.git ````
+* Instale as dependências: ```` npm install ````
+* Inicie o servidor: ```` npx expo start ````
+* Pressione W para abrir no servidor web
+* Baixe o app Expo Go no seu celular e escaneie o Qr code
 
