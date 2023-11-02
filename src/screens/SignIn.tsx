@@ -56,22 +56,23 @@ export function SignIn() {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <VStack flex={1} px={10} pb={16}>
       
-        <Center my={24}>
-          {/* <LogoSvg /> */}
-          <Text color="gray.100" fontSize="lg" fontFamily="heading">
-            Planeje sua festa com alguns cliques e sem complicações!
-          </Text>
-
+        <Center marginTop="20" display="flex" flexDirection="row">
           <Image 
-          source={BackgroundImg}
-          defaultSource={BackgroundImg}
-          alt="Pessoas treinando"
-          resizeMode="contain"
-          marginTop="10"
-          width="100"
-        />
+            source={BackgroundImg}
+            defaultSource={BackgroundImg}
+            alt="Pessoas treinando"
+            resizeMode="contain"
+           width="100"
+          />
+          <Text color="gray.100" fontSize="lg" fontFamily="heading">
+            PartyPlanner
+          </Text>
+        </Center>
 
-          
+        <Center my={10}>
+            <Text color="gray.100" fontSize="sm" marginTop="10">
+                  Planeje sua festa sem complicações!
+            </Text>
         </Center>
 
         <Center marginTop="0">
