@@ -2,11 +2,11 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Heading, HStack, Image, Text, VStack, Icon } from 'native-base';
 
 import { Entypo } from '@expo/vector-icons';
-import { ExerciseDTO } from '@dtos/ExerciseDTO';
+import { ServicesDTO } from '@dtos/ServicesDTO';
 import { api } from '@services/api';
 
 type Props = TouchableOpacityProps & {
-  data: ExerciseDTO;
+  data: ServicesDTO;
 };
 
 export function ExerciseCard({data, ...rest }: Props) {
@@ -29,7 +29,7 @@ export function ExerciseCard({data, ...rest }: Props) {
           </Heading>
 
           <Text fontSize="sm" color="gray.200" mt={1} numberOfLines={2}>
-            Sítio com área de lazer, piscina e churrasqueira!
+            {data.description}
           </Text>
         </VStack>
 

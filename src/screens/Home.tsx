@@ -8,13 +8,13 @@ import { ExerciseCard } from '@components/ExerciseCard';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { api } from '@services/api';
 import { AppError } from '@utils/AppError';
-import { ExerciseDTO } from '@dtos/ExerciseDTO';
+import { ServicesDTO } from '@dtos/ServicesDTO';
 
 export function Home() {
 
   const [groups, setGroups] = useState<string[]>([]);
-  const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
-  const [groupSelected, setGroupSelected] = useState('Costas');
+  const [exercises, setExercises] = useState<ServicesDTO[]>([]);
+  const [groupSelected, setGroupSelected] = useState('');
 
   const toast = useToast();
   const navigation = useNavigation<AppNavigatorRoutesProps>();
@@ -41,7 +41,7 @@ export function Home() {
 
   async function fetchExercisesByGroup(){
     try{
-      const response = await api.get(`/exercises/bygroup/${groupSelected}`);
+      const response = await api.get(`/services/bygroup/${groupSelected}`);
       setExercises(response.data);
 
     }catch(error){
