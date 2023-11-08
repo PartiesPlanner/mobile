@@ -9,18 +9,20 @@ import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { api } from '@services/api';
 import { AppError } from '@utils/AppError';
 import { ServicesDTO } from '@dtos/ServicesDTO';
+import { Loading } from '@components/Loading';
 
 export function Home() {
 
+  const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState<string[]>([]);
-  const [exercises, setExercises] = useState<ServicesDTO[]>([]);
+  const [services, setServices] = useState<ServicesDTO[]>([]);
   const [groupSelected, setGroupSelected] = useState('');
 
   const toast = useToast();
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
-  function handleOpenExerciseDetails() {
-    navigation.navigate('exercise');
+  function handleOpenServiceDetails(serviceId: string) {
+    navigation.navigate('exercise', {serviceId});
   }
 
   async function fetchGroups(){
@@ -39,10 +41,12 @@ export function Home() {
     }
   }
 
-  async function fetchExercisesByGroup(){
+  async function fetchServicesByGroup(){
     try{
+      setIsLoading(true);
+
       const response = await api.get(`/services/bygroup/${groupSelected}`);
-      setExercises(response.data);
+      setServices(response.data);
 
     }catch(error){
       const isAppError = error instanceof AppError;
@@ -52,6 +56,8 @@ export function Home() {
         placement: 'top',
         bgColor: 'red.500'
       });
+    }finally{
+      setIsLoading(false);
     }
   }
 
@@ -60,7 +66,7 @@ export function Home() {
   }, []);
 
   useFocusEffect(useCallback(() => {
-    fetchExercisesByGroup();
+    fetchServicesByGroup();
   }, [groupSelected]))
 
   return (
@@ -86,23 +92,25 @@ export function Home() {
         maxH={10}
       />
 
-      <VStack px={8}>
+    { isLoading ? <Loading/> :
+
+      <VStack flex={1} px={8}>
         <HStack justifyContent="space-between" mb={2}>
           <Heading color="gray.200" fontSize="md" fontFamily="heading">
             Disponíveis
           </Heading>
 
           <Text color="gray.200" fontSize="sm">
-            {exercises.length}
+            {services.length}
           </Text>
         </HStack>
 
         <FlatList 
-          data={exercises}
+          data={services}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <ExerciseCard 
-              onPress={handleOpenExerciseDetails} 
+              onPress={() => handleOpenServiceDetails(item.id)} 
               data={item}
             />
             
@@ -114,6 +122,9 @@ export function Home() {
         />
 
       </VStack>
+
+    }
+
     </VStack>
   );
 }

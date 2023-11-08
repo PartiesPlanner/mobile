@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Party-Planner",
-    "slug": "Party-Planner",
+    "name": "partyplanner",
+    "slug": "partyplanner",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

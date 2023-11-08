@@ -13,7 +13,7 @@ import { Profile } from '@screens/Profile';
 
 type AppRoutes = {
   home: undefined;
-  exercise: undefined;
+  exercise: {serviceId: string};
   profile: undefined;
   history: undefined;
 }

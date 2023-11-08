@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Box, Heading, HStack, Icon, Image, Text, VStack } from 'native-base';
+import { Box, Heading, HStack, Icon, Image, Text, useToast, VStack } from 'native-base';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
@@ -9,10 +10,43 @@ import BodySvg from '@assets/body.svg';
 import SeriesSvg from '@assets/series.svg';
 import RepetitionsSvg from '@assets/repetitions.svg';
 import { Button } from '@components/Button';
+import { AppError } from '@utils/AppError';
+import { api } from '@services/api';
+import { ServicesDTO } from '@dtos/ServicesDTO';
+
+type RouteParamsProps ={
+  serviceId: string;
+}
 
 export function Exercise() {
 
+const [service, setService] = useState<ServicesDTO>({} as ServicesDTO);
   const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  const route = useRoute();
+  const toast = useToast();
+
+  const { serviceId } = route.params as RouteParamsProps;
+
+  async function fetchServicesDetails(){
+    try{
+      const response = await api.get(`/services/${serviceId}`);
+      setService(response.data);
+
+    }catch(error){
+      const isAppError = error instanceof AppError;
+      const title = isAppError ? error.message : 'Não foi possível carregar detalhes dos serviços';
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500'
+      });
+    } 
+  }
+
+  useEffect(() => {
+    fetchServicesDetails();
+  }, [serviceId])
 
   function handleGoBack() {
     navigation.goBack();
@@ -32,14 +66,14 @@ export function Exercise() {
 
         <HStack justifyContent="space-between" mt={4} mb={8} alignItems="center">
           <Heading color="gray.100" fontSize="lg"  flexShrink={1} fontFamily="heading">
-            Puxada frontal
+            {service.name}
           </Heading>
 
           <HStack alignItems="center">
             <BodySvg />
 
             <Text color="gray.200" ml={1} textTransform="capitalize">
-              Costas
+              {service.group}
             </Text>
           </HStack>
         </HStack>
@@ -49,7 +83,7 @@ export function Exercise() {
         <Image
           w="full"
           h={80}
-          source={{ uri: 'http://conteudo.imguol.com.br/c/entretenimento/0c/2019/12/03/remada-unilateral-com-halteres-1575402100538_v2_600x600.jpg' }}
+          source={{ uri: `${api.defaults.baseURL}/photos/thumb/${service.thumb}` }}
           alt="Nome do exercício"
           mb={3}
           resizeMode="cover"
